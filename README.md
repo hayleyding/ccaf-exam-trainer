@@ -5,6 +5,18 @@ A personal Claude Code skill that drills you for the **Claude Certified Architec
 
 ---
 
+## Installation
+
+You need [Claude Code](https://claude.ai/code) installed. Then clone this repo into your Claude skills directory:
+
+```bash
+git clone https://github.com/hayleyding/ccaf-exam-trainer.git ~/.claude/skills/ccaf-exam-trainer
+```
+
+That's it. The skill is available immediately in any Claude Code session — no restart needed.
+
+---
+
 ## How to use it
 
 Open a Claude Code session in any directory and invoke the skill:
