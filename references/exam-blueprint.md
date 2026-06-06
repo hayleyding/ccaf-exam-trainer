@@ -30,14 +30,31 @@ questions and distractors around. When re-testing a failed point, rotate to a
 (Note: some third-party sites list Domain 1 at ~25% and Domain 2 at ~20%. The official
 guide values above are the ones to use.)
 
-## The 6 scenarios (frame questions inside the relevant one)
+## Scenarios
 
-1. **Customer Support Resolution Agent** — Agent SDK, MCP tools (get_customer, lookup_order, process_refund, escalate_to_human), 80%+ first-contact resolution, escalation.
-2. **Code Generation with Claude Code** — slash commands, CLAUDE.md, plan mode vs direct execution.
-3. **Multi-Agent Research System** — coordinator + subagents (search, analyse, synthesise, report), cited reports.
-4. **Developer Productivity with Claude** — built-in tools (Read, Write, Bash, Grep, Glob), MCP servers, codebase exploration.
-5. **Claude Code for CI/CD** — automated review, test generation, PR feedback, actionable output, low false positives.
-6. **Structured Data Extraction** — extract from unstructured docs, validate with JSON schemas, handle edge cases.
+The official exam guide lists 6 scenarios; the real exam draws 4 at random. However, real exam
+reports suggest the pool may contain up to 13 scenarios — questions outside the official 6 have
+appeared on the live exam. When generating mock exam questions, draw from the full pool below.
+The underlying engineering judgement tested is consistent across all scenarios.
+
+### Official 6 (exam guide + practice exam)
+
+1. **Customer Support Resolution Agent** — Agent SDK, MCP tools (get_customer, lookup_order, process_refund, escalate_to_human), 80%+ first-contact resolution, escalation. Tests agentic loop termination via stop_reason, hook-based enforcement, escalation triggers, case facts blocks.
+2. **Code Generation with Claude Code** — slash commands, CLAUDE.md hierarchy, plan mode vs direct execution, TDD iteration. Tests where standards live, when to use plan mode, skills for isolation.
+3. **Multi-Agent Research System** — coordinator + subagents (search, analyse, synthesise, report), cited reports. Tests hub-and-spoke architecture, context isolation, error propagation, provenance tracking.
+4. **Developer Productivity with Claude** — built-in tools (Read, Write, Edit, Bash, Grep, Glob), MCP servers, codebase exploration. Tests optimal tool distribution (4–5 per agent), .mcp.json config, Edit vs Write semantics.
+5. **Claude Code for CI/CD** — automated review, test generation, PR feedback, actionable output, low false positives. Tests -p flag, JSON output, session isolation, batch API for cost savings.
+6. **Structured Data Extraction** — extract from unstructured docs, validate with JSON schemas, handle edge cases. Tests tool_use with schema enforcement, structural vs semantic validation, retry-with-error-feedback, ambiguity handling.
+
+### Extended pool (may appear on the real exam)
+
+7. **Agentic Tool Design** — designing MCP tool interfaces, descriptions, error responses, and tool distribution across agents.
+8. **Long Document Processing** — context management across large inputs, progressive summarisation risks, attention dilution, case facts preservation.
+9. **Claude for Operations** — operational workflows, structured handoffs, programmatic enforcement, human-in-the-loop escalation.
+10. **Conversational AI Patterns** — multi-turn dialogue, context preservation, ambiguity resolution, confidence calibration.
+11. **Agent Skills for Enterprise Knowledge Management** — skills with forked context, allowed-tools restrictions, knowledge retrieval, provenance in synthesis.
+12. **Agent Skills for Developer Tooling** — custom slash commands, project vs user scope, CLAUDE.md modular organisation, path-specific rules.
+13. **Agent Skills with Code Execution** — code execution in agentic loops, structured output from code, validation and retry patterns.
 
 ---
 

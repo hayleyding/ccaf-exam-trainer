@@ -47,6 +47,14 @@ If you just say "quiz me", it defaults to full coverage.
 
 ---
 
+## Scenarios
+
+The official exam guide lists 6 scenarios; the real exam draws 4 at random. However, community reports from people who have sat the real exam indicate the actual pool may contain up to 13 scenarios — questions outside the official 6 have appeared on the live test.
+
+This skill covers all 13: the 6 from the official guide plus 7 additional ones discussed by the community (Agentic Tool Design, Long Document Processing, Claude for Operations, Conversational AI Patterns, Agent Skills for Enterprise Knowledge Management, Agent Skills for Developer Tooling, Agent Skills with Code Execution). Mock exams draw from the full pool so you're not caught off guard.
+
+---
+
 ## Exam facts
 
 - **Format:** multiple choice, one correct + three distractors, scenario-based

@@ -16,20 +16,39 @@
 The strongest distractors are the real anti-patterns the exam punishes. Build wrong options
 from this list (correct stance in brackets):
 
+**D1 — Agentic Architecture**
 - Parsing natural language to decide loop termination. [Check `stop_reason`.]
 - Arbitrary iteration caps as the primary stop. [Let the loop end on `end_turn`.]
-- Prompt-based enforcement for critical business rules. [Use programmatic hooks/gates.]
-- Self-reported confidence scores for routing/escalation. [Structured criteria + programmatic checks.]
-- Sentiment-based escalation. [Escalate on complexity, policy gaps, explicit requests.]
+- Prompt-based enforcement for critical business rules. [Use programmatic hooks/gates — prompts are probabilistic.]
+- Sentiment-based escalation. [Escalate on objective criteria: policy gaps, capability limits, explicit requests.]
+- Self-reported confidence scores for routing/escalation. [Use structured criteria and programmatic checks.]
+
+**D2 — Tool Design & MCP**
 - Generic error messages ("Operation failed"). [Return `isError`, `errorCategory`, `isRetryable`, context.]
 - Silently suppressing errors / empty-as-success. [Distinguish access failures from empty results.]
 - Too many tools per agent (18+). [Keep ~4-5 scoped tools per agent.]
-- Same-session self-review. [Use an independent instance/session.]
-- Aggregate-accuracy-only metrics. [Segment accuracy by document type/field.]
-- Bigger context window to fix attention dilution. [Split into focused passes.]
-- Consolidating/over-engineering (routing classifiers, new ML models) when a low-effort fix
-  (better tool descriptions, explicit criteria, few-shot) addresses the root cause.
+- Hardcoding API keys in `.mcp.json`. [Use `${ENV_VAR}` expansion — never commit secrets.]
+
+**D3 — Claude Code Config**
+- Personal preferences in project-level CLAUDE.md. [Use `~/.claude/CLAUDE.md` for personal settings.]
+- Using slash commands for complex tasks that need context isolation. [Use skills with `context: fork` and `allowed-tools`.]
+- Same-session self-review in CI/CD. [Use separate sessions for generation and review.]
+
+**D4 — Prompt Engineering**
+- Vague instructions like "be thorough" or "only flag high-confidence". [Provide explicit, measurable criteria.]
+- Assuming tool_use guarantees semantic correctness. [tool_use guarantees structure only — validate values separately.]
+- Generic retry messages without specifics. [Append the specific error: field name, expected vs actual.]
+
+**D5 — Context & Reliability**
+- Progressive summarisation of critical customer details. [Use immutable case facts blocks at context start.]
+- Aggregate-accuracy-only metrics. [Segment accuracy by document type/field — aggregate masks category failures.]
+- No provenance tracking for multi-agent data. [Track source, confidence, timestamp, and agent ID for all data.]
+- Bigger context window to fix attention dilution. [Split into focused per-file passes + integration pass.]
 - Resuming with stale tool results. [Start fresh with a structured summary.]
+
+**General over-engineering traps**
+- Consolidating/over-engineering (routing classifiers, new ML models) when a low-effort fix
+  (better tool descriptions, explicit criteria, few-shot examples) addresses the root cause.
 
 A good four-option set usually pairs the correct root-cause fix with: one "right idea, wrong
 layer" option (prompt instead of hook, few-shot instead of description fix), one over-engineered
