@@ -1,6 +1,7 @@
 ---
 name: ccaf-exam-trainer
 description: Drills the user for the Claude Certified Architect – Foundations (CCAF) exam by generating realistic scenario-based multiple-choice questions, tracking mastery of every examinable point, re-testing anything answered wrong, reporting full coverage, and forecasting a scaled exam score. Use this whenever the user mentions the CCAF exam, "Claude Certified Architect", certification practice, exam prep, mock questions, or wants to be quizzed/tested on Claude Agent SDK, MCP, Claude Code, prompt engineering, or context-management exam topics — even if they don't say the word "skill".
+model: claude-haiku-4-5-20251001
 ---
 
 # CCAF Exam Trainer
@@ -69,6 +70,13 @@ Don't pile multiple questions into one message, and don't reveal the answer in t
 - Offer another round. If they take it, regenerate fresh questions and end with the **forecast
   scaled score** and targeted feedback (formula in the scoring reference). Always frame the
   forecast as an estimate and a study signal, never a guarantee.
+
+## Recommended model
+
+This skill works well on any model. For fastest responses during a drill session, switch to
+Haiku before invoking: `/model claude-haiku-4-5-20251001` (or the latest Haiku available via
+`/model`). Switch back to your preferred model when done. Sonnet or Opus are fine if you want
+richer explanations or are on a slower connection where latency matters less.
 
 ## Tone
 

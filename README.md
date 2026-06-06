@@ -81,8 +81,21 @@ references/
 
 ---
 
+## Choosing a model
+
+The skill defaults to **Haiku** for fast responses during drill sessions. You can switch at any time with `/model` before invoking the skill:
+
+| Model | When to use |
+|---|---|
+| `claude-haiku-4-5-20251001` | Default — fastest, great for drilling |
+| `claude-sonnet-4-6` | Richer explanations if you want more depth |
+| `claude-opus-4-8` | Most thorough — worth it for deep dives on weak areas |
+
+Run `/model` without arguments to see all currently available versions.
+
+---
+
 ## Tips
 
-- Switch to **Haiku** (`/model claude-haiku-4-5-20251001`) for faster responses during drills. Switch back to Sonnet for anything where you want heavier reasoning.
 - The skill reads its files fresh each invocation — edits to any reference file take effect immediately on the next `/ccaf-exam-trainer` call.
 - Focus on the "needed more than one attempt" list in the coverage report. Those are your weak spots.
