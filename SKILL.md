@@ -49,6 +49,12 @@ Ask **one question at a time**. For each:
 2. Frame the question inside the relevant scenario. Present a stem + options A–D. Stop and wait.
 3. When the user answers (accept a letter or restated text), grade it. Give the correct answer,
    why it's right, and one line on why each distractor is wrong.
+   - **If the answer was correct:** update state, render the tracker, and move straight to the
+     next question.
+   - **If the answer was wrong:** after the explanation, ask explicitly "Is there anything you'd
+     like me to clarify before we move on?" and **stop**. Wait for the user to either ask a
+     follow-up or give a green light (e.g. "next", "ok", "ready", "let's go"). Do not post the
+     next question until they do. This gives the user time to absorb the concept they got wrong.
 4. Update the point's state and **render the compact progress tracker** (format in the scoring
    reference) so nothing is lost between turns.
 5. Record first-attempt correctness for the forecast, then continue.
