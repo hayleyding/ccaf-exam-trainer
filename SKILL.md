@@ -75,7 +75,14 @@ Exam mode simulates the real test experience — no feedback until the end.
 - Default to 60 questions unless the user requests otherwise. Draw weighted to domain
   proportions (D1:16, D2:11, D3:12, D4:12, D5:9) across 4 randomly selected scenarios from
   the full pool of 13.
-- Tell the user: "Exam started — start your timer now." then immediately present question 1.
+- Attempt to call the Bash tool with `date +%s` and store the result as `EXAM_START`.
+  - If Bash succeeds: say "Exam started — timer running." Do not show the Bash output or
+    the raw timestamp to the user.
+  - If Bash is unavailable: say "Time tracking isn't available in this environment —
+    please start your own timer for 120 minutes."
+  Skip all checkpoint blocks at Q15, Q30, Q45, Q60 if Bash is unavailable.
+- Do NOT describe what you are about to do or summarise the exam setup. Just handle the
+  Bash attempt, show the one-liner above, and present Q1.
 
 **During the exam:**
 - Present one question at a time (stem + A–D). Wait for the answer. Do **not** reveal the
@@ -83,46 +90,56 @@ Exam mode simulates the real test experience — no feedback until the end.
   the question number (e.g. "Q3 recorded — next question:") and move on immediately.
 - Do not render the progress tracker during the exam.
 - Keep a hidden record of: question number, point tested, user's answer, correct answer.
+- If the user says anything like "exit", "stop", "quit", or "end exam", immediately call
+  `date +%s` via Bash, calculate elapsed time, and generate the partial report below using
+  however many questions have been answered so far.
 
 **Timer checkpoints — after every 15 questions (Q15, Q30, Q45, Q60):**
 
-After recording the answer to Q15, Q30, Q45, and Q60 (the final question), pause and ask:
-"Q<n> done — how many minutes have passed so far?"
+After recording the answer to Q15, Q30, Q45, and Q60, **call the Bash tool** with `date +%s`
+and compute elapsed time. If Bash is unavailable, skip the checkpoint block entirely and
+move straight to the next question. Never ask the user for the time.
+- `elapsed_seconds = NOW - EXAM_START`
+- `elapsed_min = elapsed_seconds / 60` (round to 1 decimal)
+- `pace = elapsed_min / n` (min per question so far)
+- `projection = pace × 60` (estimated total minutes)
 
-Then display a pace update before continuing (or before the final report):
+Display the checkpoint block automatically — do NOT ask the user for the time:
 
 ```
 ⏱ Checkpoint: Q<n>/60
 Time used:      <X> min
 Time remaining: <120 - X> min
 Questions left: <60 - n>
-Your pace:      <X/n> min/question  (target: 2.0 min/q)
-Projection:     finish in ~<(X/n) × 60> min total → <on track / X min ahead / X min behind>
+Pace:           <pace> min/question  (target: 2.0 min/q)
+Projection:     ~<projection> min total → <on track / X min ahead / X min behind>
 ```
 
-Keep it compact — one block, then move straight to the next question (or final report at Q60).
+Then move straight to the next question (or the final report at Q60).
 
-**After the last question (Q60 checkpoint doubles as the finish):**
-- Collect elapsed time at the Q60 checkpoint, then reveal the full marking report:
+**After the last question (Q60), or on early exit:**
+- Show the checkpoint block first (call `date +%s` via Bash for elapsed time), then reveal
+  the marking report. For early exit, note how many questions were completed.
 
 ```
-# Exam Results
+# Exam Results  [or: Partial Exam Results — exited at Q<n>]
 
-Time: <X> min / 120 min (target)
-Score: <n>/60 correct  →  Forecast: ~<scaled>/1000  (pass line 720)
+Time: <X> min / 120 min target
+Questions answered: <n>/60  (<n/60 × 100>% complete)
+Score: <correct>/<n> correct  (<accuracy>%)  →  Forecast: ~<scaled>/1000  (pass line 720)
 
-Domain breakdown:
-- D1 Agentic Architecture & Orchestration (27%): X/16
-- D2 Tool Design & MCP Integration (18%):        X/11
-- D3 Claude Code Config & Workflows (20%):       X/12
-- D4 Prompt Engineering & Structured Output (20%): X/12
-- D5 Context Management & Reliability (15%):     X/9
+Domain breakdown (questions answered only):
+- D1 Agentic Architecture & Orchestration (27%): X/<attempted>
+- D2 Tool Design & MCP Integration (18%):        X/<attempted>
+- D3 Claude Code Config & Workflows (20%):       X/<attempted>
+- D4 Prompt Engineering & Structured Output (20%): X/<attempted>
+- D5 Context Management & Reliability (15%):     X/<attempted>
 
 Questions you got wrong:
 Q<n>: <point id> — correct answer was <X>. <one-line explanation>
 ...
 
-Weak areas to review: <2-4 specific topics>
+Weak areas to review: <2-4 specific topics based on questions answered so far>
 ```
 
 - After the report, offer to go through any wrong answers in detail.
