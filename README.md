@@ -31,7 +31,8 @@ Claude will ask you to pick a mode:
 |---|---|
 | **Full coverage run** (default) | Walks all 30 examinable points until every one is mastered, then shows a coverage report |
 | **Single domain** | Drills one of the 5 domains |
-| **Simulated exam** | A mock exam drawn to the real domain weights, ending with a forecast score |
+| **Practice exam** | Weighted mock across 4 randomly selected scenarios — explanations shown after each answer, forecast score at the end |
+| **Exam mode** | Full mock exam, no answers revealed during the exam, timed, complete marking report at the end |
 
 If you just say "quiz me", it defaults to full coverage.
 
@@ -39,11 +40,17 @@ If you just say "quiz me", it defaults to full coverage.
 
 ## How the drill works
 
-- One question at a time. Each is scenario-framed (4 of the 6 production scenarios from the real exam), with one correct answer and three plausible distractors.
+**Practice modes (full coverage, single domain, practice exam):**
+- One question at a time, scenario-framed, one correct answer and three plausible distractors.
 - After you answer, Claude grades it, explains the correct answer, and tells you why each distractor is wrong.
-- **If you got it wrong**, Claude pauses and asks if there's anything you want clarified before moving on. You give the greenlight (e.g. "next", "ok", "ready") when you're ready for the next question.
-- A compact progress tracker is shown after every answer so you always know where you stand.
-- Any point you get wrong is re-queued a few questions later with a *different* sub-concept, so you can't pass by memorising one answer.
+- If you got it wrong, Claude pauses and asks if there's anything you want clarified. Give a greenlight (e.g. "next", "ok", "ready") when you're ready to move on.
+- A compact progress tracker is shown after every answer.
+- Any point you get wrong is re-queued a few questions later with a different sub-concept.
+
+**Exam mode:**
+- Questions are presented one at a time with no feedback — just your answer recorded and the next question.
+- You'll be prompted to start a timer at the beginning and report your time at the end.
+- After the last question, Claude reveals the full marking report: score, domain breakdown, every wrong answer explained, forecast scaled score, and weak areas to review.
 
 ---
 

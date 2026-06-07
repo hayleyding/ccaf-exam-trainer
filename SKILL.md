@@ -36,16 +36,18 @@ Greet briefly and offer a mode (one short question, not a wall of text):
 
 - **Full coverage run** (default) — walk all 30 points until every one is mastered, then report.
 - **Single domain** — drill one of the 5 domains.
-- **Simulated exam** — a mock drawn to the domain weights across 4 of the 6 scenarios, ending
-  with a forecast score.
+- **Practice exam** — weighted mock across 4 randomly selected scenarios; explanations shown
+  after each answer; ends with a forecast score.
+- **Exam mode** — weighted mock, no answers or explanations revealed during the exam, timed,
+  full marking report at the end.
 
 If the user just says "quiz me" or similar, default to the full coverage run.
 
-## The loop
+## Practice loop (full coverage run, single domain, practice exam)
 
 Ask **one question at a time**. For each:
 
-1. Pick the next point (blueprint order for a full run; weighted draw for a simulated exam).
+1. Pick the next point (blueprint order for a full run; weighted draw for practice/exam modes).
    Re-insert any `failed` point a few questions later, using a different sub-concept.
 2. Frame the question inside the relevant scenario. Present a stem + options A–D. Stop and wait.
 3. When the user answers (accept a letter or restated text), grade it. Give the correct answer,
@@ -63,7 +65,49 @@ Ask **one question at a time**. For each:
 Keep your own prose minimal between questions — the questions and explanations are the product.
 Don't pile multiple questions into one message, and don't reveal the answer in the stem.
 
-## Finishing
+## Exam mode
+
+Exam mode simulates the real test experience — no feedback until the end.
+
+**Setup:**
+- Draw 30 questions weighted to domain proportions across 4 randomly selected scenarios from
+  the full pool of 13.
+- Tell the user: "Exam started — start your timer now." then immediately present question 1.
+
+**During the exam:**
+- Present one question at a time (stem + A–D). Wait for the answer. Do **not** reveal the
+  correct answer, explain distractors, or give any feedback. Acknowledge the answer only with
+  the question number (e.g. "Q3 recorded — next question:") and move on immediately.
+- Do not render the progress tracker during the exam.
+- Keep a hidden record of: question number, point tested, user's answer, correct answer.
+
+**After the last question:**
+- Ask: "Exam complete — how many minutes did that take?" Record the time they report.
+- Then reveal the full marking report:
+
+```
+# Exam Results
+
+Time: <X> minutes
+Score: <n>/30 correct  →  Forecast: ~<scaled>/1000  (pass line 720)
+
+Domain breakdown:
+- D1 Agentic Architecture & Orchestration (27%): X/8 — <correct/incorrect list>
+- D2 Tool Design & MCP Integration (18%):        X/5 — ...
+- D3 Claude Code Config & Workflows (20%):       X/6 — ...
+- D4 Prompt Engineering & Structured Output (20%): X/6 — ...
+- D5 Context Management & Reliability (15%):     X/5 — ...
+
+Questions you got wrong:
+Q<n>: <point id> — correct answer was <X>. <one-line explanation>
+...
+
+Weak areas to review: <2-4 specific topics>
+```
+
+- After the report, offer to go through any wrong answers in detail.
+
+## Finishing (practice modes)
 
 - When all 30 points are `mastered`, produce the **Coverage Report** and state plainly that the
   user has answered everything the exam is expected to cover correctly at least once.
