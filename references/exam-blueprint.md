@@ -12,10 +12,24 @@ questions and distractors around. When re-testing a failed point, rotate to a
 ## Exam format facts (use for the simulated exam and the forecast)
 
 - All questions are **multiple choice**: exactly one correct answer and three distractors.
-- Questions are **scenario-based** — framed inside one of the 6 production scenarios.
-- The real exam draws **4 of the 6 scenarios** at random.
+- Questions are **scenario-based** — framed inside one of the production scenarios.
+- Question count: **60** (from community reports — not explicitly stated in the official guide).
+- Time limit: not stated in the official guide. Third-party sources report **120 minutes**
+  (2 hours) — use this as the working target.
+- Target pace: **2.0 min/question** (120 min ÷ 60 questions).
+- The exam draws **4 scenarios** at random from the pool.
 - Scoring is a **scaled score from 100 to 1000**; the **passing score is 720**.
 - Unanswered = incorrect; no penalty for guessing.
+
+**Domain question distribution for a 60-question exam:**
+
+| Domain | Weight | Questions |
+|---|---|---|
+| 1. Agentic Architecture & Orchestration | 27% | 16 |
+| 2. Tool Design & MCP Integration | 18% | 11 |
+| 3. Claude Code Configuration & Workflows | 20% | 12 |
+| 4. Prompt Engineering & Structured Output | 20% | 12 |
+| 5. Context Management & Reliability | 15% | 9 |
 
 ## Domain weightings (from the official guide — use these exact numbers for the forecast)
 

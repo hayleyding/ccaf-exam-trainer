@@ -65,6 +65,9 @@ This skill covers all 13: the 6 from the official guide plus 7 additional ones d
 ## Exam facts
 
 - **Format:** multiple choice, one correct + three distractors, scenario-based
+- **Questions:** 60 (from community reports — not explicitly stated in the official guide)
+- **Time:** 120 minutes (2 hours) per third-party sources; not stated in the official guide
+- **Pace target:** 2.0 min/question
 - **Scaled score:** 100–1000, passing score is **720**
 - **Domains and weights:**
 

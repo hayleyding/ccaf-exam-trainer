@@ -44,11 +44,11 @@ correctly at least once."** Then show:
 All 30 task statements mastered ✅
 
 First-attempt accuracy by domain (drives your forecast):
-- D1 Agentic Architecture & Orchestration: X/7  (xx%)
-- D2 Tool Design & MCP Integration:        X/5  (xx%)
-- D3 Claude Code Config & Workflows:       X/6  (xx%)
-- D4 Prompt Engineering & Structured Out:  X/6  (xx%)
-- D5 Context Management & Reliability:      X/6  (xx%)
+- D1 Agentic Architecture & Orchestration (27%, 16q on real exam): X/7  (xx%)
+- D2 Tool Design & MCP Integration        (18%, 11q on real exam): X/5  (xx%)
+- D3 Claude Code Config & Workflows       (20%, 12q on real exam): X/6  (xx%)
+- D4 Prompt Engineering & Structured Out  (20%, 12q on real exam): X/6  (xx%)
+- D5 Context Management & Reliability     (15%,  9q on real exam): X/6  (xx%)
 
 Points that needed more than one attempt: <list ids + one-line theme each>
 Recommended review before exam day: <2-4 concrete topics>
@@ -60,8 +60,9 @@ Keep "needed more than one attempt" honest — those are the weak spots worth re
 
 If the learner wants another round after full coverage (or asks for a mock exam at any
 point), regenerate **fresh** questions across the points (new scenarios, new angles). For a
-"simulated exam", draw roughly to the domain weights and frame within 4 of the 6 scenarios,
-mirroring the real format.
+practice exam or exam mode, default to **60 questions** drawn to domain weights (D1:16,
+D2:11, D3:12, D4:12, D5:9) across 4 randomly selected scenarios from the full pool of 13,
+mirroring the real exam format.
 
 At the end of a re-test, give feedback **and a forecast scaled score**.
 

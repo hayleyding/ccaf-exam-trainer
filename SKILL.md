@@ -36,10 +36,12 @@ Greet briefly and offer a mode (one short question, not a wall of text):
 
 - **Full coverage run** (default) — walk all 30 points until every one is mastered, then report.
 - **Single domain** — drill one of the 5 domains.
-- **Practice exam** — weighted mock across 4 randomly selected scenarios; explanations shown
-  after each answer; ends with a forecast score.
-- **Exam mode** — weighted mock, no answers or explanations revealed during the exam, timed,
-  full marking report at the end.
+- **Practice exam** — weighted mock, 60 questions by default across 4 randomly selected
+  scenarios; explanations shown after each answer; ends with a forecast score. The user may
+  request a different number.
+- **Exam mode** — weighted mock, 60 questions by default, no answers or explanations revealed
+  during the exam, timed with pace checkpoints, full marking report at the end. The user may
+  request a different number.
 
 If the user just says "quiz me" or similar, default to the full coverage run.
 
@@ -70,7 +72,8 @@ Don't pile multiple questions into one message, and don't reveal the answer in t
 Exam mode simulates the real test experience — no feedback until the end.
 
 **Setup:**
-- Draw 30 questions weighted to domain proportions across 4 randomly selected scenarios from
+- Default to 60 questions unless the user requests otherwise. Draw weighted to domain
+  proportions (D1:16, D2:11, D3:12, D4:12, D5:9) across 4 randomly selected scenarios from
   the full pool of 13.
 - Tell the user: "Exam started — start your timer now." then immediately present question 1.
 
@@ -81,22 +84,39 @@ Exam mode simulates the real test experience — no feedback until the end.
 - Do not render the progress tracker during the exam.
 - Keep a hidden record of: question number, point tested, user's answer, correct answer.
 
-**After the last question:**
-- Ask: "Exam complete — how many minutes did that take?" Record the time they report.
-- Then reveal the full marking report:
+**Timer checkpoints — after every 15 questions (Q15, Q30, Q45, Q60):**
+
+After recording the answer to Q15, Q30, Q45, and Q60 (the final question), pause and ask:
+"Q<n> done — how many minutes have passed so far?"
+
+Then display a pace update before continuing (or before the final report):
+
+```
+⏱ Checkpoint: Q<n>/60
+Time used:      <X> min
+Time remaining: <120 - X> min
+Questions left: <60 - n>
+Your pace:      <X/n> min/question  (target: 2.0 min/q)
+Projection:     finish in ~<(X/n) × 60> min total → <on track / X min ahead / X min behind>
+```
+
+Keep it compact — one block, then move straight to the next question (or final report at Q60).
+
+**After the last question (Q60 checkpoint doubles as the finish):**
+- Collect elapsed time at the Q60 checkpoint, then reveal the full marking report:
 
 ```
 # Exam Results
 
-Time: <X> minutes
-Score: <n>/30 correct  →  Forecast: ~<scaled>/1000  (pass line 720)
+Time: <X> min / 120 min (target)
+Score: <n>/60 correct  →  Forecast: ~<scaled>/1000  (pass line 720)
 
 Domain breakdown:
-- D1 Agentic Architecture & Orchestration (27%): X/8 — <correct/incorrect list>
-- D2 Tool Design & MCP Integration (18%):        X/5 — ...
-- D3 Claude Code Config & Workflows (20%):       X/6 — ...
-- D4 Prompt Engineering & Structured Output (20%): X/6 — ...
-- D5 Context Management & Reliability (15%):     X/5 — ...
+- D1 Agentic Architecture & Orchestration (27%): X/16
+- D2 Tool Design & MCP Integration (18%):        X/11
+- D3 Claude Code Config & Workflows (20%):       X/12
+- D4 Prompt Engineering & Structured Output (20%): X/12
+- D5 Context Management & Reliability (15%):     X/9
 
 Questions you got wrong:
 Q<n>: <point id> — correct answer was <X>. <one-line explanation>
